@@ -1,7 +1,8 @@
-package com.testtask.apptesttask
+package com.testtask.apptesttask.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.testtask.apptesttask.R
 
 class MainActivity : AppCompatActivity() {
 
