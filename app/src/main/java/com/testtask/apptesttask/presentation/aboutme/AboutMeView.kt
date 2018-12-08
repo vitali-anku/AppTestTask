@@ -1,10 +1,10 @@
-package com.testtask.apptesttask.presentation.characters
+package com.testtask.apptesttask.presentation.aboutme
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndStrategy::class)
-interface CharactersView : MvpView{
+interface AboutMeView: MvpView{
     fun showText(str: String)
 }
