@@ -5,7 +5,7 @@ import com.testtask.apptesttask.presentation.base.BasePresenter
 import javax.inject.Inject
 
 @InjectViewState
-class AboutMePresenter @Inject constructor(): BasePresenter<AboutMeView>(){
+class ProfilePresenter @Inject constructor(): BasePresenter<ProfileView>(){
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

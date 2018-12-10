@@ -9,10 +9,8 @@ import javax.inject.Singleton
 
 @Module
 class AppModule (val app: TaskApp) {
-
     @NonNull
     @Provides
     @Singleton
     fun provideContext(): Context = app
-
 }

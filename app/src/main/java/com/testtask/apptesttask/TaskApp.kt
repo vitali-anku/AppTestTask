@@ -9,7 +9,6 @@ class TaskApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
         newsComponent = DaggerAppComponent
                 .builder()
                 .appModule(AppModule(this))
@@ -18,5 +17,6 @@ class TaskApp : Application() {
 
     companion object {
         lateinit var newsComponent: AppComponent
+            private set
     }
 }

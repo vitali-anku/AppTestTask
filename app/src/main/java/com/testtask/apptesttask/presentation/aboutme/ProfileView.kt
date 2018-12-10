@@ -5,6 +5,6 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(AddToEndStrategy::class)
-interface AboutMeView: MvpView{
+interface ProfileView: MvpView{
     fun showText(str: String)
 }
