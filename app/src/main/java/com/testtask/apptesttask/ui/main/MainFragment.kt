@@ -1,24 +1,23 @@
 package com.testtask.apptesttask.ui.main
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.testtask.apptesttask.R
 import com.testtask.apptesttask.presentation.main.MainPresenter
 import com.testtask.apptesttask.ui.about_me.ProfileFragment
 import com.testtask.apptesttask.ui.characters.CharactersFragment
+import com.testtask.apptesttask.ui.favorites.FavoritesFragment
 import com.testtask.apptesttask.ui.global.BaseFragment
-import com.testtask.apptesttask.ui.likecharacters.LikeCharactersFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : BaseFragment(), MvpView {
 
-    override var layoutRes: Int = R.layout.fragment_main
+    override var layoutRes = R.layout.fragment_main
 
-    private var containRes: Int = R.id.mainContainer
+    private var containRes = R.id.mainContainer
 
-    private var currentTabTag: String = ""
+    private lateinit var currentTabTag: String
 
     @InjectPresenter
     lateinit var presenter: MainPresenter
@@ -27,16 +26,17 @@ class MainFragment : BaseFragment(), MvpView {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
+            val charactersFragment = CharactersFragment()
+            val favoritesFragment = FavoritesFragment()
+            val profileFragment = ProfileFragment()
             childFragmentManager.beginTransaction()
-                    .add(containRes, createFragmentByTag(CHARACTERS), CHARACTERS)
-                    .add(containRes, createFragmentByTag(LIKECHARACTERS), LIKECHARACTERS)
-                    .add(containRes, createFragmentByTag(PROFILE), PROFILE)
+                    .add(containRes, charactersFragment, CHARACTERS)
+                    .add(containRes, favoritesFragment, FAVORITES)
+                    .add(containRes, profileFragment, PROFILE)
+                    .hide(favoritesFragment)
+                    .hide(profileFragment)
+                    .show(charactersFragment)
                     .commitNow()
-            childFragmentManager.beginTransaction()
-                    .hide(findFragmentByTag(PROFILE)!!)
-                    .hide(findFragmentByTag(LIKECHARACTERS)!!)
-                    .show(findFragmentByTag(CHARACTERS)!!)
-                    .commit()
         }
         currentTabTag = savedInstanceState?.getString(KEYSAVESTATE) ?: CHARACTERS
     }
@@ -46,7 +46,7 @@ class MainFragment : BaseFragment(), MvpView {
         bottom_navigation_view.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.tab_chatacters -> onBottomMenuItemClick(CHARACTERS)
-                R.id.tab_like_chatacters -> onBottomMenuItemClick(LIKECHARACTERS)
+                R.id.tab_like_chatacters -> onBottomMenuItemClick(FAVORITES)
                 R.id.tab_about_me -> onBottomMenuItemClick(PROFILE)
             }
             true
@@ -74,21 +74,14 @@ class MainFragment : BaseFragment(), MvpView {
 
     private fun findFragmentByTag(tag: String) = when (tag) {
         CHARACTERS -> childFragmentManager.findFragmentByTag(CHARACTERS)
-        LIKECHARACTERS -> childFragmentManager.findFragmentByTag(LIKECHARACTERS)
+        FAVORITES -> childFragmentManager.findFragmentByTag(FAVORITES)
         PROFILE -> childFragmentManager.findFragmentByTag(PROFILE)
-        else -> throw UnsupportedOperationException("Oyoyoyoi")
-    }
-
-    private fun createFragmentByTag(tag: String): Fragment = when (tag) {
-        CHARACTERS -> CharactersFragment()
-        LIKECHARACTERS -> LikeCharactersFragment()
-        PROFILE -> ProfileFragment()
         else -> throw UnsupportedOperationException("Oyoyoyoi")
     }
 
     companion object {
         private const val CHARACTERS = "characters"
-        private const val LIKECHARACTERS = "like_characters"
+        private const val FAVORITES = "like_characters"
         private const val PROFILE = "about_me"
         private const val KEYSAVESTATE = "key_state"
     }
