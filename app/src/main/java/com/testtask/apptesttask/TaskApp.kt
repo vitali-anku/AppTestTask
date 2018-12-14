@@ -17,6 +17,8 @@ class TaskApp : Application() {
 
     companion object {
         lateinit var newsComponent: AppComponent
-            private set
+        private set
+
+        fun getAppComponent(): AppComponent = newsComponent
     }
 }

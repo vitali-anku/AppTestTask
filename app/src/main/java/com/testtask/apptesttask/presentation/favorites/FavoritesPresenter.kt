@@ -4,7 +4,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.testtask.apptesttask.presentation.base.BasePresenter
 
 @InjectViewState
-class FavoritesPresenter: BasePresenter<FavoritesView>() {
+class FavoritesPresenter : BasePresenter<FavoritesView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()

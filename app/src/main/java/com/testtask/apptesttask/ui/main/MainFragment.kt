@@ -5,10 +5,11 @@ import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.testtask.apptesttask.R
 import com.testtask.apptesttask.presentation.main.MainPresenter
-import com.testtask.apptesttask.ui.about_me.ProfileFragment
 import com.testtask.apptesttask.ui.characters.CharactersFragment
 import com.testtask.apptesttask.ui.favorites.FavoritesFragment
 import com.testtask.apptesttask.ui.global.BaseFragment
+import com.testtask.apptesttask.ui.profile.ProfileFragment
+
 import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainFragment : BaseFragment(), MvpView {
