@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">AppTestTask</string>
+    <string name="menu_characters_item">Characters</string>
+    <string name="menu_favorites_item">Favorites</string>
+    <string name="menu_about_me_item">AboutMe</string>
+
+    <string name="tag_characters_fragment">CharactersFragment</string>
+    <string name="tag_like_charactres_fragment">LikeCharactersFragment</string>
+    <string name="tag_about_me_fragment">AboutMeFragment</string>
 </resources>
