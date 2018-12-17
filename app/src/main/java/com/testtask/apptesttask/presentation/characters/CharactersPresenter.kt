@@ -5,11 +5,12 @@ import com.testtask.apptesttask.presentation.base.BasePresenter
 import javax.inject.Inject
 
 @InjectViewState
-class CharactersPresenter @Inject constructor (): BasePresenter<CharactersView>(){
+class CharactersPresenter @Inject constructor() : BasePresenter<CharactersView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        viewState.showText("Characters")
+        // TODO: characters tab
+        viewState.showText("123")
     }
 }

@@ -9,6 +9,7 @@ class TaskApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         newsComponent = DaggerAppComponent
                 .builder()
                 .appModule(AppModule(this))
