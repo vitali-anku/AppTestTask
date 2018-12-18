@@ -13,8 +13,9 @@ class AppActivity : MvpAppCompatActivity(), MvpView {
         setContentView(R.layout.layout_container)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.container, MainFragment())
-                    .commit()
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.container, MainFragment())
+                    .commitNow()
         }
     }
 }

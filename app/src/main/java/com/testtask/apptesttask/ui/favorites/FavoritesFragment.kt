@@ -1,5 +1,7 @@
 package com.testtask.apptesttask.ui.favorites
 
+import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.testtask.apptesttask.R
@@ -14,7 +16,15 @@ class FavoritesFragment : BaseFragment(), FavoritesView {
 
     override val layoutRes = R.layout.fragment_like_characters
 
+    lateinit var likeCharactersText: TextView
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        likeCharactersText = view.findViewById(R.id.test_like_characters)
+    }
+
     override fun showText(str: String) {
-        view!!.findViewById<TextView>(R.id.test_like_characters).text = str
+        likeCharactersText.text = str
     }
 }

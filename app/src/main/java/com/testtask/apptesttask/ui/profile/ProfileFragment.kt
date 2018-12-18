@@ -1,5 +1,7 @@
 package com.testtask.apptesttask.ui.profile
 
+import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.testtask.apptesttask.R
@@ -14,7 +16,15 @@ class ProfileFragment : BaseFragment(), ProfileView {
 
     override val layoutRes = R.layout.fragment_about_me
 
+    lateinit var profoliteText: TextView
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        profoliteText = view.findViewById(R.id.test_about_me)
+    }
+
     override fun showText(str: String) {
-        view!!.findViewById<TextView>(R.id.test_about_me)
+        profoliteText.text = str
     }
 }
