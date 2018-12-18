@@ -16,15 +16,15 @@ class ProfileFragment : BaseFragment(), ProfileView {
 
     override val layoutRes = R.layout.fragment_about_me
 
-    lateinit var profoliteText: TextView
+    private lateinit var profileText: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        profoliteText = view.findViewById(R.id.test_about_me)
+        profileText = view.findViewById(R.id.test_about_me)
     }
 
     override fun showText(str: String) {
-        profoliteText.text = str
+        profileText.text = str
     }
 }

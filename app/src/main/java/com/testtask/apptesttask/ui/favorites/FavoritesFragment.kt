@@ -16,7 +16,7 @@ class FavoritesFragment : BaseFragment(), FavoritesView {
 
     override val layoutRes = R.layout.fragment_like_characters
 
-    lateinit var likeCharactersText: TextView
+    private lateinit var likeCharactersText: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

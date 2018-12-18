@@ -10,6 +10,6 @@ class CharactersPresenter @Inject constructor() : BasePresenter<CharactersView>(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        // TODO: characters tab (viewState.showText("123"))
+        // TODO: characters tab (viewState.showText("Characters"))
     }
 }

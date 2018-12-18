@@ -16,7 +16,7 @@ class CharactersFragment : BaseFragment(), CharactersView {
 
     override val layoutRes = R.layout.fragment_charcters
 
-    lateinit var charactersText: TextView
+    private lateinit var charactersText: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
