@@ -10,6 +10,6 @@ class ProfilePresenter @Inject constructor() : BasePresenter<ProfileView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        // TODO: profile tab (viewState.showText("Profile"))
+        // TODO: profile tab (Add view implementation).
     }
 }

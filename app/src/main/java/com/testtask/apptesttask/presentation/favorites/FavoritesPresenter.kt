@@ -9,6 +9,6 @@ class FavoritesPresenter : BasePresenter<FavoritesView>() {
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        // TODO: like characters tab (viewState.showText("LikeCharacters"))
+        // TODO: like characters tab (Add view implementation).
     }
 }
