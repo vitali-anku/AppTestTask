@@ -6,14 +6,7 @@ import io.reactivex.Single
 
 class CharactersInteractor {
 
-    fun getCharacters(): Single<CharacterDataWrapper> {
-        TODO("characters interactor (Add implementation returned value method).")
-    }
+    fun getCharacters(): Single<CharacterDataWrapper> = Single.never()
 
-    fun setFavoritCharacter(id: Int, like: Boolean): Completable {
-        if (like)
-            return Completable.complete()
-        else
-            return Completable.error(Throwable())
-    }
+    fun setFavoritCharacter(id: Int, like: Boolean): Completable = Completable.complete()
 }
