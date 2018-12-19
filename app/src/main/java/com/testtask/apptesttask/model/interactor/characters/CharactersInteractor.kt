@@ -1,20 +1,15 @@
 package com.testtask.apptesttask.model.interactor.characters
 
+import com.testtask.apptesttask.model.repository.MarvelRepository
 import javax.inject.Inject
 
-class CharactersInteractor @Inject constructor(
-    /**TODO characters interactor (Add repository).*/
-) {
+class CharactersInteractor @Inject constructor(var marvelRepository: MarvelRepository) :
+    Interactor {
 
-    //TODO characters interactor (Add implementation get characters).
-    fun getCharacters() {}
+    override fun getCharacters(ts: String, apikey: String, hash: String) =
+            marvelRepository.getHeroesList(ts, apikey, hash)
 
-    //TODO characters interactor (Add implementation get favorites characters).
-    fun getFavoritesCharacters() {}
-
-    //TODO characters interactor (Add implementation set favorites characters).
-    fun setFavoritesCharacters() {}
-
-    //TODO characters interactor (Add implementation get favorites characters).
-    fun favorFavoritesCharacters() {}
+    override fun setFavoritesCharacters(id: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
