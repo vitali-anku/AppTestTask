@@ -8,5 +8,5 @@ class CharactersInteractor {
 
     fun getCharacters(): Single<CharacterDataWrapper> = Single.never()
 
-    fun setFavoritesCharacter(id: Int, faevores: Boolean): Completable = Completable.complete()
+    fun setFavoriteCharacter(id: Int, favorite: Boolean): Completable = Completable.complete()
 }
