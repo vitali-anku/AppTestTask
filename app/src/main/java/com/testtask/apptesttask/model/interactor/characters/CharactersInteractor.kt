@@ -6,7 +6,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class CharactersInteractor @Inject constructor(var charactersRepository: CharactersRepository) {
+class CharactersInteractor @Inject constructor(private var charactersRepository: CharactersRepository) {
 
     fun getCharacters(): Single<CharacterDataWrapper> = charactersRepository.getCharacters()
 

@@ -1,14 +1,16 @@
 package com.testtask.apptesttask.model.repository
 
-import com.testtask.apptesttask.entity.AppConfig.Companion.hash
-import com.testtask.apptesttask.entity.AppConfig.Companion.publicKey
-import com.testtask.apptesttask.entity.AppConfig.Companion.ts
+import com.testtask.apptesttask.entity.AppConfig
 import com.testtask.apptesttask.entity.charactrers.CharacterDataWrapper
 import com.testtask.apptesttask.model.data.MarvelService
 import io.reactivex.Single
+import javax.inject.Inject
 
-class CharactersRepository(private var marvelService: MarvelService) {
+class CharactersRepository @Inject constructor(
+    private val marvelService: MarvelService,
+    private val appConfig: AppConfig
+) {
 
     fun getCharacters(): Single<CharacterDataWrapper> =
-            marvelService.getCharacters(ts, publicKey, hash)
+            marvelService.getCharacters(appConfig.ts, appConfig.publicKey, appConfig.hash)
 }
