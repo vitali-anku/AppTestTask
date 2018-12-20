@@ -6,7 +6,6 @@ import com.google.gson.GsonBuilder
 import com.testtask.apptesttask.model.data.MarvelService
 import dagger.Module
 import dagger.Provides
-import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,26 +16,6 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(builder: Retrofit.Builder): Retrofit {
-        return builder.baseUrl("https://gateway.marvel.com").build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideRetrofitBuilder(converterFactory: Converter.Factory): Retrofit.Builder {
-        return Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(converterFactory)
-    }
-
-    @Provides
-    @Singleton
-    fun provideConverterFactory(gson: Gson): Converter.Factory {
-        return GsonConverterFactory.create(gson)
-    }
-
-    @Provides
-    @Singleton
     fun provideGson(): Gson {
         return GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
@@ -44,6 +23,16 @@ class NetworkModule {
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .serializeNulls()
                 .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(gson: Gson): Retrofit {
+        return Retrofit.Builder()
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl("https://gateway.marvel.com")
+                .build()
     }
 
     @Provides
