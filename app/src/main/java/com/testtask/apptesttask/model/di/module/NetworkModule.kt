@@ -17,12 +17,6 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideMarvelService(retrofit: Retrofit): MarvelService {
-        return retrofit.create(MarvelService::class.java)
-    }
-
-    @Provides
-    @Singleton
     fun provideRetrofit(builder: Retrofit.Builder): Retrofit {
         return builder.baseUrl("https://gateway.marvel.com").build()
     }
@@ -50,5 +44,11 @@ class NetworkModule {
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .serializeNulls()
                 .create()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMarvelService(retrofit: Retrofit): MarvelService {
+        return retrofit.create(MarvelService::class.java)
     }
 }
