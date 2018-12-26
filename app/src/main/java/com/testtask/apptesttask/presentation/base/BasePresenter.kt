@@ -10,11 +10,10 @@ open class BasePresenter<V : MvpView> : MvpPresenter<V>() {
     private val compositeDisposable = CompositeDisposable()
 
     override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.clear()
+        compositeDisposable.dispose()
     }
 
-    protected fun unsubscribeOnDestroy(disposable: Disposable) {
-        compositeDisposable.add(disposable)
+    protected fun Disposable.unsubscribeOnDestroy() {
+        compositeDisposable.add(this)
     }
 }

@@ -2,14 +2,15 @@ package com.testtask.apptesttask.presentation.characters
 
 import com.arellomobile.mvp.InjectViewState
 import com.testtask.apptesttask.model.interactor.characters.CharactersInteractor
+import com.testtask.apptesttask.model.system.SchedulersProvider
 import com.testtask.apptesttask.presentation.base.BasePresenter
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @InjectViewState
-class CharactersPresenter @Inject constructor(private val charactersInteractor: CharactersInteractor) :
-    BasePresenter<CharactersView>() {
+class CharactersPresenter @Inject constructor(
+    private var charactersInteractor: CharactersInteractor,
+    private var schedulersProvider: SchedulersProvider
+) : BasePresenter<CharactersView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -17,23 +18,20 @@ class CharactersPresenter @Inject constructor(private val charactersInteractor: 
         loadCharacters()
     }
 
-    fun loadCharacters() {
-        unsubscribeOnDestroy(charactersInteractor.getCharacters()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+    private fun loadCharacters() {
+        charactersInteractor
+                .getCharacters()
+                .subscribeOn(schedulersProvider.io())
+                .observeOn(schedulersProvider.ui())
                 .doOnSubscribe { viewState.showProgress() }
-                .subscribe({ characterDataWrapper ->
-                    viewState.showCharacters(characterDataWrapper.data.results)
-                    hideProgress()
-                },
-                    { error ->
-                        viewState.showError(error as Throwable)
-                        hideProgress()
+                .doAfterTerminate { viewState.hideProgress() }
+                .subscribe(
+                    { characterDataWrapper ->
+                        viewState.showCharacters(characterDataWrapper.data.results)
+                    },
+                    { errorMessage ->
+                        viewState.showError(errorMessage.toString())
                     })
-        )
-    }
-
-    private fun hideProgress() {
-        viewState.hideProgress()
+                .unsubscribeOnDestroy()
     }
 }
