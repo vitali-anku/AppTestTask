@@ -24,7 +24,7 @@ class CharactersFragment : BaseFragment(), CharactersView {
     lateinit var charactersPresenter: CharactersPresenter
 
     @ProvidePresenter
-    fun providePresenter(): CharactersPresenter = charactersPresenter
+    fun providePresenter() = charactersPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         TaskApp.newsComponent.inject(this)
@@ -45,7 +45,7 @@ class CharactersFragment : BaseFragment(), CharactersView {
         //TODO characters fragment (Add implementation this method).
     }
 
-    override fun showError(error: String) {
+    override fun showError(message: String) {
         //TODO characters fragment (Add implementation this method).
     }
 

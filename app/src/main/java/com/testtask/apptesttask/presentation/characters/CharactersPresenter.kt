@@ -2,14 +2,14 @@ package com.testtask.apptesttask.presentation.characters
 
 import com.arellomobile.mvp.InjectViewState
 import com.testtask.apptesttask.model.interactor.characters.CharactersInteractor
-import com.testtask.apptesttask.model.system.SchedulersProvider
-import com.testtask.apptesttask.presentation.base.BasePresenter
+import com.testtask.apptesttask.presentation.global.BasePresenter
+import com.testtask.apptesttask.presentation.global.ErrorHandler
 import javax.inject.Inject
 
 @InjectViewState
 class CharactersPresenter @Inject constructor(
-    private var charactersInteractor: CharactersInteractor,
-    private var schedulersProvider: SchedulersProvider
+    private val charactersInteractor: CharactersInteractor,
+    private val errorHandle: ErrorHandler
 ) : BasePresenter<CharactersView>() {
 
     override fun onFirstViewAttach() {
@@ -19,19 +19,15 @@ class CharactersPresenter @Inject constructor(
     }
 
     private fun loadCharacters() {
-        charactersInteractor
-                .getCharacters()
-                .subscribeOn(schedulersProvider.io())
-                .observeOn(schedulersProvider.ui())
-                .doOnSubscribe { viewState.showProgress() }
+        charactersInteractor.getCharacters()
                 .doAfterTerminate { viewState.hideProgress() }
                 .subscribe(
-                    { characterDataWrapper ->
-                        viewState.showCharacters(characterDataWrapper.data.results)
+                    {
+                        viewState.showCharacters(it.data.results)
                     },
-                    { errorMessage ->
-                        viewState.showError(errorMessage.toString())
+                    { it ->
+                        errorHandle.proceed(it) { viewState.showError(it) }
                     })
-                .unsubscribeOnDestroy()
+                .connect()
     }
 }

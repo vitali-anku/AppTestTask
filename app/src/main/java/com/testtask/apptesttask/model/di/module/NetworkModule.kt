@@ -3,7 +3,7 @@ package com.testtask.apptesttask.model.di.module
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.testtask.apptesttask.model.data.MarvelService
+import com.testtask.apptesttask.model.data.server.MarvelService
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

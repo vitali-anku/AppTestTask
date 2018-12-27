@@ -1,4 +1,4 @@
-package com.testtask.apptesttask.model.data
+package com.testtask.apptesttask.model.data.server
 
 import com.testtask.apptesttask.entity.charactrers.CharacterDataWrapper
 import io.reactivex.Single

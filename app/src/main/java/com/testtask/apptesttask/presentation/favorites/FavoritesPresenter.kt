@@ -1,7 +1,7 @@
 package com.testtask.apptesttask.presentation.favorites
 
 import com.arellomobile.mvp.InjectViewState
-import com.testtask.apptesttask.presentation.base.BasePresenter
+import com.testtask.apptesttask.presentation.global.BasePresenter
 
 @InjectViewState
 class FavoritesPresenter :

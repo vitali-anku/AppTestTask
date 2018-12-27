@@ -1,4 +1,4 @@
-package com.testtask.apptesttask.presentation.base
+package com.testtask.apptesttask.presentation.global
 
 import com.arellomobile.mvp.MvpPresenter
 import com.arellomobile.mvp.MvpView
@@ -13,7 +13,7 @@ open class BasePresenter<V : MvpView> : MvpPresenter<V>() {
         compositeDisposable.dispose()
     }
 
-    protected fun Disposable.unsubscribeOnDestroy() {
+    protected fun Disposable.connect() {
         compositeDisposable.add(this)
     }
 }
