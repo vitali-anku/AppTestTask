@@ -25,8 +25,8 @@ class CharactersPresenter @Inject constructor(
                     {
                         viewState.showCharacters(it.data.results)
                     },
-                    { it ->
-                        errorHandle.proceed(it) { viewState.showError(it) }
+                    {
+                        errorHandle.proceed(it) { message -> viewState.showError(message) }
                     })
                 .connect()
     }
