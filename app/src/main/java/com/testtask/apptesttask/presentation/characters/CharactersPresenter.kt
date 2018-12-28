@@ -22,12 +22,9 @@ class CharactersPresenter @Inject constructor(
         charactersInteractor.getCharacters()
                 .doAfterTerminate { viewState.hideProgress() }
                 .subscribe(
-                    {
-                        viewState.showCharacters(it.data.results)
-                    },
-                    {
-                        errorHandle.proceed(it) { message -> viewState.showError(message) }
-                    })
+                    { viewState.showCharacters(it.data.results) },
+                    { errorHandle.proceed(it) { message -> viewState.showError(message) } }
+                )
                 .connect()
     }
 }
