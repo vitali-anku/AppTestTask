@@ -4,7 +4,16 @@
     <string name="menu_favorites_item">Favorites</string>
     <string name="menu_about_me_item">AboutMe</string>
 
+    <!--Naming tabs TODO-->
     <string name="tag_characters_fragment">CharactersFragment</string>
     <string name="tag_like_charactres_fragment">LikeCharactersFragment</string>
     <string name="tag_about_me_fragment">AboutMeFragment</string>
+
+    <!--Error messages TODO-->
+    <string name="unknown_error">Unknown error</string>
+    <string name="network_error">Network error</string>
+    <string name="unauthorized">401 Unauthorized</string>
+    <string name="not_found_error">404 Not Found</string>
+    <string name="conflict_error">409 Conflict</string>
+    <string name="server_error_error">500 Server Error</string>
 </resources>
