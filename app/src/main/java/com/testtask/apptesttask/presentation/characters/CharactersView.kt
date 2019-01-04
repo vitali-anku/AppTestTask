@@ -12,4 +12,6 @@ interface CharactersView : MvpView {
     fun showCharacters(characters: List<Character>)
     fun showError(message: String)
     fun hideProgress()
+
+    fun favorCharacter(character: Character)
 }

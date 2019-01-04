@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface MarvelService {
 
-    @GET("/v1/public/characters")
+    @GET("/v1/public/apiCharacters")
     @Headers("Content-Type: application/json")
     fun getCharacters(
         @Query("ts") ts: String,

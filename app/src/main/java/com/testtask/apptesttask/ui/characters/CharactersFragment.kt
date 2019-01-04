@@ -11,13 +11,15 @@ import com.testtask.apptesttask.entity.charactrers.Character
 import com.testtask.apptesttask.presentation.characters.CharactersPresenter
 import com.testtask.apptesttask.presentation.characters.CharactersView
 import com.testtask.apptesttask.ui.global.BaseFragment
+import com.testtask.apptesttask.ui.global.CharactersAdapter
 import javax.inject.Inject
 
 class CharactersFragment : BaseFragment(), CharactersView {
-
     override val layoutRes = R.layout.fragment_charcters
 
     private lateinit var charactersText: TextView
+
+    private lateinit var adapter: CharactersAdapter
 
     @Inject
     @InjectPresenter
@@ -38,18 +40,22 @@ class CharactersFragment : BaseFragment(), CharactersView {
     }
 
     override fun showProgress() {
-        //TODO characters fragment (Add implementation this method).
+        //TODO apiCharacters fragment (Add implementation this method).
     }
 
     override fun showCharacters(characters: List<Character>) {
-        //TODO characters fragment (Add implementation this method).
+        adapter = CharactersAdapter(context!!, characters, this)
+    }
+
+    override fun favorCharacter(character: Character) {
+        charactersPresenter.favoriteCharacter(character, character.favorite)
     }
 
     override fun showError(message: String) {
-        //TODO characters fragment (Add implementation this method).
+        //TODO apiCharacters fragment (Add implementation this method).
     }
 
     override fun hideProgress() {
-        //TODO characters fragment (Add implementation this method).
+        //TODO apiCharacters fragment (Add implementation this method).
     }
 }
