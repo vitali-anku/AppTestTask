@@ -35,8 +35,7 @@ class CharactersPresenter @Inject constructor(
     }
 
     fun favoritCharacter(position: Int) {
-        val character = characters[position]
-        character.favorite = !character.favorite!!
+        val character = characters[position].copy(favorite = !characters[position].favorite!!)
         charactersInteractor.setFavoriteCharacter(
             character.id,
             character

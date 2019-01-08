@@ -57,12 +57,10 @@ class CharactersRepository @Inject constructor(
                     .observeOn(schedulers.ui())
 
     fun favorCharacter(id: Int, character: Character) {
-        prefs.favoritesCharacters?.let {
-            if (it.containsKey(id)) {
-                it.remove(id)
-            } else {
-                it[id] = character
-            }
+        if (prefs.favoritesCharacters!!.containsKey(id)) {
+            prefs.favoritesCharacters!!.remove(id)
+        } else {
+            prefs.favoritesCharacters!![id] = character
         }
     }
 }

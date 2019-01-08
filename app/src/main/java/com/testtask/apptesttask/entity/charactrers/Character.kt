@@ -14,5 +14,5 @@ data class Character(
     val stories: StoryList,
     val events: EventList,
     val series: SeriesList,
-    var favorite: Boolean?
+    val favorite: Boolean?
 )
