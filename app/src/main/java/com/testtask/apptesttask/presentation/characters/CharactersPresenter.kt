@@ -5,7 +5,6 @@ import com.testtask.apptesttask.entity.charactrers.Character
 import com.testtask.apptesttask.model.interactor.characters.CharactersInteractor
 import com.testtask.apptesttask.presentation.global.BasePresenter
 import com.testtask.apptesttask.presentation.global.ErrorHandler
-import io.reactivex.Completable
 import javax.inject.Inject
 
 @InjectViewState
@@ -13,6 +12,8 @@ class CharactersPresenter @Inject constructor(
     private val charactersInteractor: CharactersInteractor,
     private val errorHandle: ErrorHandler
 ) : BasePresenter<CharactersView>() {
+
+    private val characters = mutableListOf<Character>()
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -25,6 +26,7 @@ class CharactersPresenter @Inject constructor(
                 .doAfterTerminate { viewState.hideProgress() }
                 .subscribe(
                     {
+                        characters.addAll(it)
                         viewState.showCharacters(it)
                     },
                     { errorHandle.proceed(it) { message -> viewState.showError(message) } }
@@ -32,7 +34,15 @@ class CharactersPresenter @Inject constructor(
                 .connect()
     }
 
-    fun favoriteCharacter(character: Character, favorite: Boolean): Completable {
-        return charactersInteractor.setFavoriteCharacter(character, favorite)
+    fun favoritCharacter(position: Int) {
+        val character = characters[position]
+        character.favorite = !character.favorite!!
+        charactersInteractor.setFavoriteCharacter(
+            character.id,
+            character
+        )
+        characters.add(position, character)
+        viewState.favorCharacter(characters)
     }
 }
+

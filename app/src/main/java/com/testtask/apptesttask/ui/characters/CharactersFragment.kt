@@ -1,6 +1,7 @@
 package com.testtask.apptesttask.ui.characters
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -36,6 +37,7 @@ class CharactersFragment : BaseFragment(), CharactersView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter = CharactersAdapter(context!!) { charactersPresenter.favoritCharacter(it) }
         charactersText = view.findViewById(R.id.test_characters)
     }
 
@@ -44,15 +46,15 @@ class CharactersFragment : BaseFragment(), CharactersView {
     }
 
     override fun showCharacters(characters: List<Character>) {
-        adapter = CharactersAdapter(context!!, characters, this)
+        adapter.updateCharacters(characters)
     }
 
-    override fun favorCharacter(character: Character) {
-        charactersPresenter.favoriteCharacter(character, character.favorite)
+    override fun favorCharacter(characters: List<Character>) {
+        adapter.updateCharacters(characters)
     }
 
     override fun showError(message: String) {
-        //TODO apiCharacters fragment (Add implementation this method).
+        Log.e("Error", message)
     }
 
     override fun hideProgress() {
