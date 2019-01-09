@@ -9,47 +9,35 @@ import com.testtask.apptesttask.entity.charactrers.Character
 
 class CharactersAdapter constructor(
     val context: Context,
-    private val listener: (position: Int) -> Unit
+    private val clickListener: (position: Int) -> Unit
 ) : RecyclerView.Adapter<CharactersHolder>() {
 
-    private var characters = mutableListOf<Character>()
+    private var items = mutableListOf<Character>()
 
     override fun onCreateViewHolder(view: ViewGroup, viewType: Int): CharactersHolder {
         val itemView = LayoutInflater.from(context).inflate(null, view, false)
         val holder = CharactersHolder(itemView)
         holder.itemView.setOnClickListener {
-            listener(holder.adapterPosition)
+            clickListener(holder.adapterPosition)
         }
 
         return holder
     }
 
     override fun getItemCount(): Int {
-        return characters.size
+        return items.size
     }
 
-    override fun onBindViewHolder(holder: CharactersHolder, positon: Int) {
-        val character = characters[positon]
-        holder.bind(character)
+    override fun onBindViewHolder(holder: CharactersHolder, position: Int) {
+        holder.bind(items[position])
     }
 
-    override fun onBindViewHolder(
-        holder: CharactersHolder,
-        position: Int,
-        payloads: MutableList<Any>
-    ) {
-        super.onBindViewHolder(holder, position, payloads)
+    fun setCharacters(characters: List<Character>) {
+        val oldItems = items.toList()
 
-        val character = characters[position]
-        holder.updateStar(character.favorite!!)
-    }
-
-    fun updateCharacters(newCharacters: List<Character>) {
-        val oldItems = characters.toList()
-
-        characters.clear()
-        characters.addAll(newCharacters)
-        DiffUtil.calculateDiff(DiffCallback(characters, oldItems))
+        items.clear()
+        items.addAll(characters)
+        DiffUtil.calculateDiff(DiffCallback(items, oldItems))
                 .dispatchUpdatesTo(this)
     }
 

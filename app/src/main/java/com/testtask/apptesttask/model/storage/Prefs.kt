@@ -7,7 +7,7 @@ import com.testtask.apptesttask.entity.charactrers.Character
 import javax.inject.Inject
 
 class Prefs @Inject constructor(
-    context: Context,
+    private val context: Context,
     private val gson: Gson
 ) {
 
@@ -18,19 +18,19 @@ class Prefs @Inject constructor(
             context.getSharedPreferences(PREF_TAG, Context.MODE_PRIVATE)
 
     var favoritesCharacters: MutableMap<Int, Character>?
-        get() = convertArrayToMutableList(sharedPreferences.getString(FAVORITE_CHARACTERS, null))
+        get() = convertCharacters(sharedPreferences.getString(FAVORITE_CHARACTERS, null))
         set(value) {
-            sharedPreferences.edit().putString(FAVORITE_CHARACTERS, gson.toJson(value))
+            sharedPreferences.edit()
+                    .putString(FAVORITE_CHARACTERS, gson.toJson(value))
                     .apply()
         }
 
-    private fun convertArrayToMutableList(valueString: String?): MutableMap<Int, Character> {
+    private fun convertCharacters(gsonString: String?): MutableMap<Int, Character> {
         val mutableList = mutableMapOf<Int, Character>()
-        val typeToken = object : TypeToken<Map<Int, Character>>() {}.type
-        valueString?.let {
+        gsonString?.let {
+            val typeToken = object : TypeToken<Map<Int, Character>>() {}.type
             mutableList.putAll(gson.fromJson(it, typeToken))
         }
-
         return mutableList
     }
 }

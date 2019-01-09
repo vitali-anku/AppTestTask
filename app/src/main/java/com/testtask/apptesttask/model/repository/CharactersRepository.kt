@@ -17,50 +17,55 @@ class CharactersRepository @Inject constructor(
     private val prefs: Prefs
 ) {
 
-    private fun getApiCharacters() = marvelService
-            .getCharacters(appConfig.ts, appConfig.publicKey, appConfig.hash)
-            .flatMap { characterDataWrapper ->
-                Single.just(characterDataWrapper.data.results)
-            }
-
-    private fun getPrefs(): Single<Map<Int, Character>> =
-            Single.just(prefs.favoritesCharacters)
+    private val characters = mutableListOf<Character>()
 
     fun getCharacters(): Single<List<Character>> =
             Single.zip(
-                getApiCharacters(),
-                getPrefs(),
+                marvelService
+                        .getCharacters(appConfig.ts, appConfig.publicKey, appConfig.hash)
+                        .flatMap { characterDataWrapper ->
+                            Single.just(characterDataWrapper.data.results)
+                        },
+                Single.just(prefs.favoritesCharacters),
                 BiFunction<List<ApiCharacter>, Map<Int, Character>?, List<Character>> { apiCharacters, favorites ->
                     apiCharacters.map {
                         val id = it.id
-                        Character(
-                            id,
-                            it.name,
-                            it.description,
-                            it.modified,
-                            it.resourceURI,
-                            it.urls,
-                            it.thumbnail,
-                            it.comics,
-                            it.stories,
-                            it.events,
-                            it.series,
-                            if (favorites.containsKey(id)) {
-                                favorites[id]?.favorite
-                            } else
-                                false
+                        characters.add(
+                            id, Character(
+                                id,
+                                it.name,
+                                it.description,
+                                it.modified,
+                                it.resourceURI,
+                                it.urls,
+                                it.thumbnail,
+                                it.comics,
+                                it.stories,
+                                it.events,
+                                it.series,
+                                favorites[id]?.favorite ?: false
+                            )
                         )
                     }
+                    characters
                 }
             )
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
 
-    fun favorCharacter(id: Int, character: Character) {
+    fun favorCharacter(position: Int): Single<MutableList<Character>>? {
+        val character = characters[position].copy(favorite = !characters[position].favorite)
+        val id = character.id
+        characters.add(id, character)
+
         if (prefs.favoritesCharacters!!.containsKey(id)) {
             prefs.favoritesCharacters!!.remove(id)
         } else {
             prefs.favoritesCharacters!![id] = character
         }
+
+        return Single.just(characters)
+                .subscribeOn(schedulers.io())
+                .observeOn(schedulers.ui())
     }
 }

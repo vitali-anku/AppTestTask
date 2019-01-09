@@ -1,7 +1,6 @@
 package com.testtask.apptesttask.ui.characters
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -46,15 +45,11 @@ class CharactersFragment : BaseFragment(), CharactersView {
     }
 
     override fun showCharacters(characters: List<Character>) {
-        adapter.updateCharacters(characters)
-    }
-
-    override fun favorCharacter(characters: List<Character>) {
-        adapter.updateCharacters(characters)
+        adapter.setCharacters(characters)
     }
 
     override fun showError(message: String) {
-        Log.e("Error", message)
+        //TODO apiCharacters fragment (Add implementation this method).
     }
 
     override fun hideProgress() {
