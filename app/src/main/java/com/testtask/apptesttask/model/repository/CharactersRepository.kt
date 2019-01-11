@@ -28,40 +28,45 @@ class CharactersRepository @Inject constructor(
                         },
                 Single.just(prefs.favoritesCharacters),
                 BiFunction<List<ApiCharacter>, Map<Int, Character>?, List<Character>> { apiCharacters, favorites ->
+                    apiCharacters.size
+                    favorites.size
                     apiCharacters.map {
                         val id = it.id
-                        characters.add(
-                            id, Character(
-                                id,
-                                it.name,
-                                it.description,
-                                it.modified,
-                                it.resourceURI,
-                                it.urls,
-                                it.thumbnail,
-                                it.comics,
-                                it.stories,
-                                it.events,
-                                it.series,
-                                favorites[id]?.favorite ?: false
-                            )
+                        val character = Character(
+                            id,
+                            it.name,
+                            it.description,
+                            it.modified,
+                            it.resourceURI,
+                            it.urls,
+                            it.thumbnail,
+                            it.comics,
+                            it.stories,
+                            it.events,
+                            it.series,
+                            favorites[id]?.favorite ?: false
                         )
+                        characters.add(character)
+                        character
                     }
-                    characters
                 }
             )
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
 
-    fun favorCharacter(position: Int): Single<MutableList<Character>>? {
+    fun favorCharacter(position: Int): Single<MutableList<Character>> {
         val character = characters[position].copy(favorite = !characters[position].favorite)
         val id = character.id
-        characters.add(id, character)
+        characters[position] = character
 
-        if (prefs.favoritesCharacters!!.containsKey(id)) {
-            prefs.favoritesCharacters!!.remove(id)
+        val favoriteCharacters = prefs.favoritesCharacters
+
+        if (favoriteCharacters.contains(id)) {
+            favoriteCharacters.remove(id)
+            prefs.favoritesCharacters = favoriteCharacters
         } else {
-            prefs.favoritesCharacters!![id] = character
+            favoriteCharacters[id] = character
+            prefs.favoritesCharacters = favoriteCharacters
         }
 
         return Single.just(characters)
@@ -69,3 +74,4 @@ class CharactersRepository @Inject constructor(
                 .observeOn(schedulers.ui())
     }
 }
+
