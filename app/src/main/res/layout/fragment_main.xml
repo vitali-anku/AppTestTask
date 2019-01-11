@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.AppActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".ui.AppActivity">
 
     <FrameLayout
         android:id="@+id/mainContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginBottom="56dp" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
