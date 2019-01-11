@@ -2,7 +2,6 @@ package com.testtask.apptesttask.ui.characters
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.testtask.apptesttask.R
@@ -16,8 +15,6 @@ import javax.inject.Inject
 
 class CharactersFragment : BaseFragment(), CharactersView {
     override val layoutRes = R.layout.fragment_charcters
-
-    private lateinit var charactersText: TextView
 
     private lateinit var adapter: CharactersAdapter
 
@@ -37,7 +34,6 @@ class CharactersFragment : BaseFragment(), CharactersView {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = CharactersAdapter(context!!) { charactersPresenter.favoritCharacter(it) }
-        charactersText = view.findViewById(R.id.test_characters)
     }
 
     override fun showProgress() {
