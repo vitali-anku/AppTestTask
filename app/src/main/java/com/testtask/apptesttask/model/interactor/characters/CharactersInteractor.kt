@@ -11,6 +11,6 @@ class CharactersInteractor @Inject constructor(
 
     fun getCharacters(): Single<List<Character>> = charactersRepository.getCharacters()
 
-    fun setFavoriteCharacter(position: Int): Single<MutableList<Character>>? =
-            charactersRepository.favorCharacter(position)
+    fun setFavoriteCharacter(character: Character): Single<Character> =
+            charactersRepository.favorCharacter(character)
 }

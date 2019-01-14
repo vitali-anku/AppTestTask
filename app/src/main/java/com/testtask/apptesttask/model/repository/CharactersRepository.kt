@@ -17,22 +17,17 @@ class CharactersRepository @Inject constructor(
     private val prefs: Prefs
 ) {
 
-    private val characters = mutableListOf<Character>()
-
     fun getCharacters(): Single<List<Character>> =
             Single.zip(
                 marvelService
                         .getCharacters(appConfig.ts, appConfig.publicKey, appConfig.hash)
-                        .flatMap { characterDataWrapper ->
-                            Single.just(characterDataWrapper.data.results)
-                        },
+                        .map { it.data.results },
                 Single.just(prefs.favoritesCharacters),
-                BiFunction<List<ApiCharacter>, Map<Int, Character>?, List<Character>> { apiCharacters, favorites ->
-                    apiCharacters.size
-                    favorites.size
+                BiFunction<List<ApiCharacter>, Map<Int, Character>?,
+                        List<Character>> { apiCharacters, favorites ->
                     apiCharacters.map {
                         val id = it.id
-                        val character = Character(
+                        Character(
                             id,
                             it.name,
                             it.description,
@@ -46,32 +41,29 @@ class CharactersRepository @Inject constructor(
                             it.series,
                             favorites[id]?.favorite ?: false
                         )
-                        characters.add(character)
-                        character
                     }
                 }
             )
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
 
-    fun favorCharacter(position: Int): Single<MutableList<Character>> {
-        val character = characters[position].copy(favorite = !characters[position].favorite)
-        val id = character.id
-        characters[position] = character
+    fun favorCharacter(character: Character): Single<Character> =
 
-        val favoriteCharacters = prefs.favoritesCharacters
+            Single.just(character)
+                    .map {
+                        val favoriteCharacter = it.copy(favorite = !it.favorite)
+                        val favoriteCharacters = prefs.favoritesCharacters
 
-        if (favoriteCharacters.contains(id)) {
-            favoriteCharacters.remove(id)
-            prefs.favoritesCharacters = favoriteCharacters
-        } else {
-            favoriteCharacters[id] = character
-            prefs.favoritesCharacters = favoriteCharacters
-        }
-
-        return Single.just(characters)
-                .subscribeOn(schedulers.io())
-                .observeOn(schedulers.ui())
-    }
+                        if (favoriteCharacters.contains(it.id)) {
+                            favoriteCharacters.remove(it.id)
+                            prefs.favoritesCharacters = favoriteCharacters
+                        } else {
+                            favoriteCharacters[it.id] = favoriteCharacter
+                            prefs.favoritesCharacters = favoriteCharacters
+                        }
+                        favoriteCharacter
+                    }
+                    .subscribeOn(schedulers.newThread())
+                    .observeOn(schedulers.ui())
 }
 

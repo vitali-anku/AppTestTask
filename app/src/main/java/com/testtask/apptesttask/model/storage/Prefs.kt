@@ -25,9 +25,9 @@ class Prefs @Inject constructor(
                     .apply()
         }
 
-    private fun convertCharacters(gsonString: String?): MutableMap<Int, Character> {
+    private fun convertCharacters(json: String?): MutableMap<Int, Character> {
         val mutableList = mutableMapOf<Int, Character>()
-        gsonString?.let {
+        json?.let {
             val typeToken = object : TypeToken<Map<Int, Character>>() {}.type
             mutableList.putAll(gson.fromJson(it, typeToken))
         }
