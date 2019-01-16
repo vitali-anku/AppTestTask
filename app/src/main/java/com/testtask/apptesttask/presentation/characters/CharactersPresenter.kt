@@ -35,7 +35,7 @@ class CharactersPresenter @Inject constructor(
     }
 
     fun favoritCharacter(position: Int) {
-        charactersInteractor.setFavoriteCharacter(characters[position])
+        charactersInteractor.favorCharacter(characters[position])
                 .subscribe(
                     {
                         characters[position] = it

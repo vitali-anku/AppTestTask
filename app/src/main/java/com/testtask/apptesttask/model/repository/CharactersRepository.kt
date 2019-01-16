@@ -23,7 +23,7 @@ class CharactersRepository @Inject constructor(
                         .getCharacters(appConfig.ts, appConfig.publicKey, appConfig.hash)
                         .map { it.data.results },
                 Single.just(prefs.favoritesCharacters),
-                BiFunction<List<ApiCharacter>, Map<Int, Character>?,
+                BiFunction<List<ApiCharacter>, Map<Int, Character>,
                         List<Character>> { apiCharacters, favorites ->
                     apiCharacters.map {
                         val id = it.id
@@ -48,22 +48,19 @@ class CharactersRepository @Inject constructor(
                     .observeOn(schedulers.ui())
 
     fun favorCharacter(character: Character): Single<Character> =
+            Single.fromCallable {
+                val newCharacter = character.copy(favorite = !character.favorite)
+                val characters = prefs.favoritesCharacters
 
-            Single.just(character)
-                    .map {
-                        val favoriteCharacter = it.copy(favorite = !it.favorite)
-                        val favoriteCharacters = prefs.favoritesCharacters
-
-                        if (favoriteCharacters.contains(it.id)) {
-                            favoriteCharacters.remove(it.id)
-                            prefs.favoritesCharacters = favoriteCharacters
-                        } else {
-                            favoriteCharacters[it.id] = favoriteCharacter
-                            prefs.favoritesCharacters = favoriteCharacters
-                        }
-                        favoriteCharacter
-                    }
-                    .subscribeOn(schedulers.newThread())
+                if (characters.contains(character.id)) {
+                    characters.remove(character.id)
+                } else {
+                    characters[character.id] = newCharacter
+                }
+                prefs.favoritesCharacters = characters
+                newCharacter
+            }
+                    .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
 }
 

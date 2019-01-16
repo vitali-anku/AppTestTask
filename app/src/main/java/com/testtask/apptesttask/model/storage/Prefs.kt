@@ -26,11 +26,11 @@ class Prefs @Inject constructor(
         }
 
     private fun convertCharacters(json: String?): MutableMap<Int, Character> {
-        val mutableList = mutableMapOf<Int, Character>()
+        val characters = mutableMapOf<Int, Character>()
         json?.let {
             val typeToken = object : TypeToken<Map<Int, Character>>() {}.type
-            mutableList.putAll(gson.fromJson(it, typeToken))
+            characters.putAll(gson.fromJson(it, typeToken))
         }
-        return mutableList
+        return characters
     }
 }
