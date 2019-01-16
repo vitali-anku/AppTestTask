@@ -8,9 +8,7 @@ class CharactersInteractor @Inject constructor(
     private val charactersRepository: CharactersRepository
 ) {
 
-    fun getCharacters() =
-            charactersRepository.getCharacters()
+    fun getCharacters() = charactersRepository.getCharacters()
 
-    fun favorCharacter(character: Character) =
-            charactersRepository.favorCharacter(character)
+    fun favorCharacter(character: Character) = charactersRepository.favorCharacter(character)
 }
