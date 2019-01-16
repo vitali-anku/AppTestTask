@@ -2,7 +2,6 @@ package com.testtask.apptesttask.ui.characters
 
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.testtask.apptesttask.R
@@ -11,13 +10,13 @@ import com.testtask.apptesttask.entity.charactrers.Character
 import com.testtask.apptesttask.presentation.characters.CharactersPresenter
 import com.testtask.apptesttask.presentation.characters.CharactersView
 import com.testtask.apptesttask.ui.global.BaseFragment
+import com.testtask.apptesttask.ui.global.CharactersAdapter
 import javax.inject.Inject
 
 class CharactersFragment : BaseFragment(), CharactersView {
-
     override val layoutRes = R.layout.fragment_charcters
 
-    private lateinit var charactersText: TextView
+    private lateinit var adapter: CharactersAdapter
 
     @Inject
     @InjectPresenter
@@ -34,22 +33,22 @@ class CharactersFragment : BaseFragment(), CharactersView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        charactersText = view.findViewById(R.id.test_characters)
+        adapter = CharactersAdapter(context!!) { charactersPresenter.favoritCharacter(it) }
     }
 
     override fun showProgress() {
-        //TODO characters fragment (Add implementation this method).
+        //TODO apiCharacters fragment (Add implementation this method).
     }
 
     override fun showCharacters(characters: List<Character>) {
-        //TODO characters fragment (Add implementation this method).
+        adapter.setCharacters(characters)
     }
 
     override fun showError(message: String) {
-        //TODO characters fragment (Add implementation this method).
+        //TODO apiCharacters fragment (Add implementation this method).
     }
 
     override fun hideProgress() {
-        //TODO characters fragment (Add implementation this method).
+        //TODO apiCharacters fragment (Add implementation this method).
     }
 }

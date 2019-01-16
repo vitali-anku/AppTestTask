@@ -10,6 +10,6 @@ class FavoritesPresenter :
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        // TODO: like characters tab (Add view implementation).
+        // TODO: like apiCharacters tab (Add view implementation).
     }
 }
