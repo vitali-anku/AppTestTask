@@ -1,6 +1,7 @@
 package com.testtask.apptesttask.ui.characters
 
 import android.os.Bundle
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -15,6 +16,8 @@ import javax.inject.Inject
 
 class CharactersFragment : BaseFragment(), CharactersView {
     override val layoutRes = R.layout.fragment_charcters
+
+    private lateinit var recycler: RecyclerView
 
     private lateinit var adapter: CharactersAdapter
 
@@ -33,7 +36,9 @@ class CharactersFragment : BaseFragment(), CharactersView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        recycler = view.findViewById(R.id.recycler_characters)
         adapter = CharactersAdapter(context!!) { charactersPresenter.favoritCharacter(it) }
+        recycler.adapter = adapter
     }
 
     override fun showProgress() {
