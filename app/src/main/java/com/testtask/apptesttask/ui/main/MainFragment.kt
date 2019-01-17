@@ -82,7 +82,7 @@ class MainFragment : BaseFragment(), MvpView {
     }
 
     companion object {
-        private const val CHARACTERS = "characters"
+        private const val CHARACTERS = "apiCharacters"
         private const val FAVORITES = "like_characters"
         private const val PROFILE = "about_me"
         private const val KEYSAVESTATE = "key_state"

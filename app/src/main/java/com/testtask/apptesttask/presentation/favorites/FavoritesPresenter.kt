@@ -1,14 +1,15 @@
 package com.testtask.apptesttask.presentation.favorites
 
 import com.arellomobile.mvp.InjectViewState
-import com.testtask.apptesttask.presentation.base.BasePresenter
+import com.testtask.apptesttask.presentation.global.BasePresenter
 
 @InjectViewState
-class FavoritesPresenter : BasePresenter<FavoritesView>() {
+class FavoritesPresenter :
+    BasePresenter<FavoritesView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        // TODO: like characters tab (Add view implementation).
+        // TODO: like apiCharacters tab (Add view implementation).
     }
 }

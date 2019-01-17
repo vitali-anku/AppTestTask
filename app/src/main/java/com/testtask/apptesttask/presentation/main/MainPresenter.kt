@@ -2,7 +2,7 @@ package com.testtask.apptesttask.presentation.main
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpView
-import com.testtask.apptesttask.presentation.base.BasePresenter
+import com.testtask.apptesttask.presentation.global.BasePresenter
 
 @InjectViewState
 class MainPresenter : BasePresenter<MvpView>()
