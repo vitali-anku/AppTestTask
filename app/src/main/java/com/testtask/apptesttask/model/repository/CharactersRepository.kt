@@ -6,6 +6,7 @@ import com.testtask.apptesttask.entity.charactrers.Character
 import com.testtask.apptesttask.model.data.server.MarvelService
 import com.testtask.apptesttask.model.storage.Prefs
 import com.testtask.apptesttask.model.system.SchedulersProvider
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
@@ -65,6 +66,19 @@ class CharactersRepository @Inject constructor(
                         }
                         prefs.favoritesCharacters = characters
                         newCharacter
+                    }
+                    .subscribeOn(schedulers.io())
+                    .observeOn(schedulers.ui())
+
+    fun getFavoriteCharacters(): Observable<MutableList<Character>> =
+            Observable
+                    .just(prefs.favoritesCharacters)
+                    .map {
+                        val characters = mutableListOf<Character>()
+                        for (id in it.keys) {
+                            characters.add(it[id]!!)
+                        }
+                        characters
                     }
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
