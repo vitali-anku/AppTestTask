@@ -24,8 +24,8 @@ class FavoritesFragment : BaseFragment(), FavoritesView {
         likeCharactersText = view.findViewById(R.id.test_like_characters)
     }
 
-    override fun showText(str: String) {
-        likeCharactersText.text = str
+    override fun showError(message: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showCharacters(characters: List<Character>) {

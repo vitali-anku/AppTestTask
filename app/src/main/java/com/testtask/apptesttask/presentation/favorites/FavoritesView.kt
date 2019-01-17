@@ -8,6 +8,6 @@ import com.testtask.apptesttask.entity.charactrers.Character
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface FavoritesView : MvpView {
 
-    fun showText(str: String)
+    fun showError(message: String)
     fun showCharacters(characters: List<Character>)
 }

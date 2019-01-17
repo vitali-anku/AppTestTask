@@ -11,4 +11,6 @@ class CharactersInteractor @Inject constructor(
     fun getCharacters() = charactersRepository.getCharacters()
 
     fun favorCharacter(character: Character) = charactersRepository.favorCharacter(character)
+
+    fun getFavoritesCharacters() = charactersRepository.getFavoritesCharacters()
 }

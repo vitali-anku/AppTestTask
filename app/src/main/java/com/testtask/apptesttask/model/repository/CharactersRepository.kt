@@ -70,7 +70,7 @@ class CharactersRepository @Inject constructor(
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
 
-    fun getFavoriteCharacters(): Observable<MutableList<Character>> =
+    fun getFavoritesCharacters(): Observable<MutableList<Character>> =
             Observable
                     .just(prefs.favoritesCharacters)
                     .map {
