@@ -1,6 +1,7 @@
 package com.testtask.apptesttask.presentation.favorites
 
 import com.arellomobile.mvp.InjectViewState
+import com.testtask.apptesttask.entity.charactrers.Character
 import com.testtask.apptesttask.model.interactor.characters.CharactersInteractor
 import com.testtask.apptesttask.presentation.global.BasePresenter
 import com.testtask.apptesttask.presentation.global.ErrorHandler
@@ -21,8 +22,16 @@ class FavoritesPresenter @Inject constructor(
     private fun loadFavoritesCharacters() {
         charactersInteractor.getFavoritesCharacters()
                 .subscribe(
-                    { viewState.showCharacters(it) },
-                    { errorHandle.proceed(it) { message -> viewState.showError(message) } })
+                    {
+                        val characters = mutableListOf<Character>()
+                        for (id in it.keys) {
+                            characters.add(it[id]!!)
+                        }
+                        viewState.showCharacters(characters)
+                    },
+                    {
+                        errorHandle.proceed(it) { message -> viewState.showError(message) }
+                    })
                 .connect()
     }
 }

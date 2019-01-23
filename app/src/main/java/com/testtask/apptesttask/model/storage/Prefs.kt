@@ -14,7 +14,7 @@ class Prefs @Inject constructor(
     private val PREF_TAG = "characters"
     private val FAVORITE_CHARACTERS = "favorite_characters"
 
-    private val sharedPreferences =
+    var sharedPreferences =
             context.getSharedPreferences(PREF_TAG, Context.MODE_PRIVATE)
 
     var favoritesCharacters: MutableMap<Int, Character>
