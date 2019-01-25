@@ -3,6 +3,7 @@ package com.testtask.apptesttask.ui.favorites
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.testtask.apptesttask.R
@@ -43,10 +44,11 @@ class FavoritesFragment : BaseFragment(), FavoritesView {
     }
 
     override fun showError(message: String) {
-//        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
     override fun showCharacters(characters: List<Character>) {
         adapter.setCharacters(characters)
     }
 }
+
