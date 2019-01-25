@@ -1,8 +1,10 @@
 package com.testtask.apptesttask.ui.characters
 
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.testtask.apptesttask.R
@@ -21,6 +23,8 @@ class CharactersFragment : BaseFragment(), CharactersView {
 
     private lateinit var adapter: CharactersAdapter
 
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
     @Inject
     @InjectPresenter
     lateinit var charactersPresenter: CharactersPresenter
@@ -37,12 +41,13 @@ class CharactersFragment : BaseFragment(), CharactersView {
         super.onViewCreated(view, savedInstanceState)
 
         recycler = view.findViewById(R.id.recycler_characters)
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_characters)
         adapter = CharactersAdapter(context!!) { charactersPresenter.favoritCharacter(it) }
         recycler.adapter = adapter
     }
 
     override fun showProgress() {
-        //TODO apiCharacters fragment (Add implementation this method).
+        swipeRefreshLayout.isRefreshing = true
     }
 
     override fun showCharacters(characters: List<Character>) {
@@ -50,10 +55,10 @@ class CharactersFragment : BaseFragment(), CharactersView {
     }
 
     override fun showError(message: String) {
-        //TODO apiCharacters fragment (Add implementation this method).
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     override fun hideProgress() {
-        //TODO apiCharacters fragment (Add implementation this method).
+        swipeRefreshLayout.isRefreshing = false
     }
 }
