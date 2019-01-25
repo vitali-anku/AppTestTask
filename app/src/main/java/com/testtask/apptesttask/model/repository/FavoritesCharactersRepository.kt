@@ -13,19 +13,27 @@ class FavoritesCharactersRepository @Inject constructor(
     private val schedulers: SchedulersProvider
 ) {
 
-    val subject = BehaviorSubject.create<Map<Int, Character>>()
+    val subject = BehaviorSubject.create<List<Character>>()
 
     val listener = SharedPreferences.OnSharedPreferenceChangeListener { preference, key ->
-        subject.onNext(prefs.favoritesCharacters)
+        subject.onNext(convertMapToList())
     }
 
     init {
         prefs.sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
-        subject.onNext(prefs.favoritesCharacters)
+        subject.onNext(convertMapToList())
     }
 
-    fun getFavoritesCharacters(): Observable<Map<Int, Character>> =
+    fun getFavoritesCharacters(): Observable<List<Character>> =
             subject
                     .subscribeOn(schedulers.io())
                     .observeOn(schedulers.ui())
+
+    fun convertMapToList(): List<Character> {
+        val characters = mutableListOf<Character>()
+        for (id in prefs.favoritesCharacters.keys) {
+            characters.add(prefs.favoritesCharacters[id]!!)
+        }
+        return characters
+    }
 }
