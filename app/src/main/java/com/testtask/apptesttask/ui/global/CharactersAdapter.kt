@@ -5,6 +5,7 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.testtask.apptesttask.R
 import com.testtask.apptesttask.entity.charactrers.Character
 
 class CharactersAdapter constructor(
@@ -15,7 +16,7 @@ class CharactersAdapter constructor(
     private var items = mutableListOf<Character>()
 
     override fun onCreateViewHolder(view: ViewGroup, viewType: Int): CharactersHolder {
-        val itemView = LayoutInflater.from(context).inflate(null, view, false)
+        val itemView = LayoutInflater.from(context).inflate(R.layout.item_characters, view, false)
         val holder = CharactersHolder(itemView)
         holder.itemView.setOnClickListener {
             clickListener(holder.adapterPosition)

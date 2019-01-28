@@ -2,15 +2,26 @@ package com.testtask.apptesttask.ui.global
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import com.testtask.apptesttask.R
 import com.testtask.apptesttask.entity.charactrers.Character
+import com.testtask.apptesttask.glide.GlideApp
 
 class CharactersHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(character: Character) {
-        //TODO CharactersHolder (Add impl this method.)
-    }
+        itemView.findViewById<TextView>(R.id.name_character).text = character.name
+        itemView.findViewById<TextView>(R.id.description_character).text = character.description
+        GlideApp
+                .with(itemView)
+                .load(character.thumbnail.path + "." + character.thumbnail.extension)
+                .override(105)
+                .into(itemView.findViewById(R.id.image_character))
 
-    fun updateStar(favorite: Boolean) {
-        //TODO CharactersHolder (Add impl this method.)
+        if (character.favorite)
+            itemView.findViewById<ImageView>(R.id.image_star).setImageResource(R.drawable.ic_star)
+        else
+            itemView.findViewById<ImageView>(R.id.image_star).setImageResource(R.drawable.ic_empty_star)
     }
 }
