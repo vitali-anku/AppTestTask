@@ -16,7 +16,7 @@ import com.testtask.apptesttask.ui.global.BaseFragment
 import com.testtask.apptesttask.ui.global.CharactersAdapter
 import javax.inject.Inject
 
-class CharactersFragment : BaseFragment(), CharactersView {
+class CharactersFragment : BaseFragment(), CharactersView, SwipeRefreshLayout.OnRefreshListener {
     override val layoutRes = R.layout.fragment_charcters
 
     private lateinit var recycler: RecyclerView
@@ -42,6 +42,7 @@ class CharactersFragment : BaseFragment(), CharactersView {
 
         recycler = view.findViewById(R.id.recycler_characters)
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_characters)
+        swipeRefreshLayout.setOnRefreshListener(this)
         adapter = CharactersAdapter(context!!) { charactersPresenter.favoritCharacter(it) }
         recycler.adapter = adapter
     }
@@ -52,6 +53,10 @@ class CharactersFragment : BaseFragment(), CharactersView {
 
     override fun showCharacters(characters: List<Character>) {
         adapter.setCharacters(characters)
+    }
+
+    override fun onRefresh() {
+        charactersPresenter.loadCharacters()
     }
 
     override fun showError(message: String) {

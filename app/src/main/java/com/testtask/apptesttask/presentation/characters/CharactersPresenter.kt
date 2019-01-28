@@ -21,7 +21,7 @@ class CharactersPresenter @Inject constructor(
         loadCharacters()
     }
 
-    private fun loadCharacters() {
+    fun loadCharacters() {
         charactersInteractor.getCharacters()
                 .doOnSubscribe { viewState.showProgress() }
                 .doAfterTerminate { viewState.hideProgress() }
