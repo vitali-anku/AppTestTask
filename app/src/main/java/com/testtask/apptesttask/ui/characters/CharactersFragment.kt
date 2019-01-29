@@ -8,15 +8,16 @@ import android.widget.Toast
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.testtask.apptesttask.R
-import com.testtask.apptesttask.TaskApp
 import com.testtask.apptesttask.entity.charactrers.Character
 import com.testtask.apptesttask.presentation.characters.CharactersPresenter
 import com.testtask.apptesttask.presentation.characters.CharactersView
+import com.testtask.apptesttask.toothpick.DI
 import com.testtask.apptesttask.ui.global.BaseFragment
 import com.testtask.apptesttask.ui.global.CharactersAdapter
-import javax.inject.Inject
+import toothpick.Toothpick
 
 class CharactersFragment : BaseFragment(), CharactersView, SwipeRefreshLayout.OnRefreshListener {
+
     override val layoutRes = R.layout.fragment_charcters
 
     private lateinit var recycler: RecyclerView
@@ -25,17 +26,14 @@ class CharactersFragment : BaseFragment(), CharactersView, SwipeRefreshLayout.On
 
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    @Inject
     @InjectPresenter
     lateinit var charactersPresenter: CharactersPresenter
 
     @ProvidePresenter
-    fun providePresenter() = charactersPresenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        TaskApp.newsComponent.inject(this)
-        super.onCreate(savedInstanceState)
-    }
+    fun providePresenter(): CharactersPresenter =
+            Toothpick
+                    .openScope(DI.APP_SCOPE)
+                    .getInstance(CharactersPresenter::class.java)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

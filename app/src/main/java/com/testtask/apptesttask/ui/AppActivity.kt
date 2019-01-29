@@ -2,13 +2,15 @@ package com.testtask.apptesttask.ui
 
 import android.os.Bundle
 import com.arellomobile.mvp.MvpAppCompatActivity
-import com.arellomobile.mvp.MvpView
 import com.testtask.apptesttask.R
+import com.testtask.apptesttask.toothpick.DI
 import com.testtask.apptesttask.ui.main.MainFragment
+import toothpick.Toothpick
 
-class AppActivity : MvpAppCompatActivity(), MvpView {
+class AppActivity : MvpAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Toothpick.inject(this, Toothpick.openScope(DI.APP_SCOPE))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_container)
 

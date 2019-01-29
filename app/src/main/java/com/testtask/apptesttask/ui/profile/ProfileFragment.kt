@@ -11,10 +11,10 @@ import com.testtask.apptesttask.ui.global.BaseFragment
 
 class ProfileFragment : BaseFragment(), ProfileView {
 
+    override val layoutRes = R.layout.fragment_about_me
+
     @InjectPresenter
     lateinit var presenter: ProfilePresenter
-
-    override val layoutRes = R.layout.fragment_about_me
 
     private lateinit var profileText: TextView
 
