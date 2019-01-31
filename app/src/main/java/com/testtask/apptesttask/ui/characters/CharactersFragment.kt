@@ -35,6 +35,11 @@ class CharactersFragment : BaseFragment(), CharactersView, SwipeRefreshLayout.On
                     .openScope(DI.APP_SCOPE)
                     .getInstance(CharactersPresenter::class.java)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        Toothpick.inject(this, Toothpick.openScope(DI.APP_SCOPE))
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

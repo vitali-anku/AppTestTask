@@ -17,4 +17,6 @@ class GlideModule : AppGlideModule() {
         val factory = OkHttpUrlLoader.Factory(OkHttpClient())
         glide.registry.replace(GlideUrl::class.java, InputStream::class.java, factory)
     }
+
+    override fun isManifestParsingEnabled() = false
 }

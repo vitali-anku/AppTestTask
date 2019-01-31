@@ -13,8 +13,6 @@ class FavoritesFragment : BaseFragment(), FavoritesView {
 
     override val layoutRes = R.layout.fragment_like_characters
 
-    override val fragmentScopeName = "MainFragment"
-
     @InjectPresenter
     lateinit var presenter: FavoritesPresenter
 

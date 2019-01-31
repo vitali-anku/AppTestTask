@@ -20,4 +20,9 @@ class AppActivity : MvpAppCompatActivity() {
                     .commitNow()
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Toothpick.closeScope(DI.APP_SCOPE)
+    }
 }
